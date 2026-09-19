@@ -27,10 +27,10 @@ export const IRS_LIMITS_2026 = {
   HEALTH_FSA_LIMIT: 3400,
   HEALTH_FSA_MAX_CARRYOVER: 680,
 
-  // Dependent Care FSA (IRC § 129)
-  // Note: $5,000 / $2,500 are statutory limits; verify with employer plan and current IRS guidance
-  DEPENDENT_CARE_FSA_DEFAULT: 5000,
-  DEPENDENT_CARE_FSA_MFS: 2500,
+  // Dependent Care FSA (IRC § 129 as amended by OBBBA Pub. L. 119-21)
+  // Note: Verify current limit with your employer plan and IRS guidance
+  DEPENDENT_CARE_FSA_DEFAULT: 7500,
+  DEPENDENT_CARE_FSA_MFS: 3750,
 } as const;
 
 export const IRS_CITATIONS = {
@@ -38,7 +38,7 @@ export const IRS_CITATIONS = {
   HDHP: "IRS Rev. Proc. 2025-19",
   HEALTH_FSA: "IRS Rev. Proc. 2025-32",
   DEPENDENT_CARE:
-    "IRC § 129; verify current limit with your employer plan and IRS guidance",
+    "IRC § 129 as amended by OBBBA Pub. L. 119-21; verify with your employer plan",
 } as const;
 
 /**

@@ -37,7 +37,7 @@ export function ResultsDisplay({
         </div>
         <div>
           <h3 className="text-lg font-semibold text-gray-900">
-            Recommended Elections
+            Suggested Starting Point
           </h3>
           <p className="text-sm text-gray-600">{recommended.name}</p>
         </div>

@@ -439,7 +439,7 @@ export function calculateOptimalElections(
 
   if (recommended.dependentCareFSAElection > 0) {
     warnings.push(
-      "Dependent Care FSA: The $5,000 limit is per household (not per parent). " +
+      "Dependent Care FSA: The $7,500 limit is per household (not per parent). " +
         "Verify the current limit with your employer and IRS guidance."
     );
   }

@@ -85,7 +85,7 @@ describe("calculateOptimalElections", () => {
       );
     });
 
-    it("should cap dependent care FSA at $5,000 for MFJ", () => {
+    it("should cap dependent care FSA at $7,500 for MFJ", () => {
       const result = calculateOptimalElections(inputs);
       expect(result.maxDependentCareFSA).toBe(
         IRS_LIMITS_2026.DEPENDENT_CARE_FSA_DEFAULT

@@ -75,10 +75,10 @@ All limits sourced from **IRS Rev. Proc. 2025-19** and **Rev. Proc. 2025-32**:
 |--------------|-------|
 | Health FSA salary reduction | $3,400 |
 | Health FSA max carryover (if plan allows) | $680 |
-| Dependent Care FSA | $5,000* |
-| Dependent Care FSA (MFS) | $2,500* |
+| Dependent Care FSA | $7,500* |
+| Dependent Care FSA (MFS) | $3,750* |
 
-*\*Dependent Care FSA: Users should verify the current limit with their employer plan and IRS guidance. The $5,000 / $2,500 limits are long-standing statutory caps.*
+*\*Dependent Care FSA: IRC § 129 as amended by OBBBA Pub. L. 119-21. Verify the current limit with your employer plan and IRS guidance.*
 
 ## Calculator Inputs
 

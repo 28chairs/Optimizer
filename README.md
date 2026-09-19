@@ -142,9 +142,9 @@ All limits are sourced from official IRS guidance:
 | HDHP Max OOP (Family) | $17,000 | Rev. Proc. 2025-19 |
 | Health FSA | $3,400 | Rev. Proc. 2025-32 |
 | Health FSA Carryover | $680 | Rev. Proc. 2025-32 |
-| Dependent Care FSA | $5,000* | IRC § 129 |
+| Dependent Care FSA | $7,500* | IRC § 129 (OBBBA) |
 
-*Verify dependent care limit with your employer plan and current IRS guidance.
+*Dependent Care FSA: IRC § 129 as amended by OBBBA Pub. L. 119-21. Verify with your employer plan.
 
 ## Tech Stack
 

@@ -33,7 +33,7 @@ export function ScenarioComparison({
             >
               {isRecommended && (
                 <span className="inline-block mb-2 rounded-full bg-blue-600 px-2 py-0.5 text-xs font-medium text-white">
-                  Recommended
+                  Suggested
                 </span>
               )}
               <h4 className="font-semibold text-gray-900">{scenario.name}</h4>

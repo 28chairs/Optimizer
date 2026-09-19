@@ -79,9 +79,9 @@ export default function DisclaimerPage() {
               limits may differ from IRS maximums.
             </li>
             <li>
-              The Dependent Care FSA limit ($5,000 / $2,500 for MFS) is a
-              statutory limit that may be subject to change; verify with current
-              IRS guidance.
+              The Dependent Care FSA limit ($7,500 / $3,750 for MFS) reflects
+              IRC § 129 as amended by OBBBA Pub. L. 119-21; verify with your
+              employer plan and current IRS guidance.
             </li>
           </ul>
         </section>
