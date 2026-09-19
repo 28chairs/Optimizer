@@ -6,6 +6,8 @@ import { ResultsDisplay } from "@/components/ResultsDisplay";
 import { ScenarioComparison } from "@/components/ScenarioComparison";
 import { Checklist } from "@/components/Checklist";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
+import { AffiliateCTA } from "@/components/AffiliateCTA";
+import { EmailCapture } from "@/components/EmailCapture";
 import {
   calculateOptimalElections,
   type CalculatorInputs,
@@ -115,6 +117,16 @@ export default function Home() {
                 recommendedId={result.recommended.id}
                 isEligibleForHSA={result.isEligibleForHSA}
               />
+
+              <EmailCapture result={result} />
+
+              {/* Affiliate CTAs */}
+              {result.isEligibleForHSA && (
+                <div className="space-y-4" data-print-hide>
+                  <AffiliateCTA variant="hsa" />
+                  <AffiliateCTA variant="hysa" />
+                </div>
+              )}
 
               <DisclaimerBanner compact />
             </div>

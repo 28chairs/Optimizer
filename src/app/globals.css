@@ -18,18 +18,104 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Print styles */
 @media print {
+  /* Hide navigation elements */
+  header,
+  footer,
+  nav,
   [data-print-hide] {
     display: none !important;
   }
 
+  /* Reset page layout */
   body {
-    background: white;
-    font-size: 12pt;
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+    line-height: 1.4;
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
+  /* Remove shadows and borders for cleaner printing */
+  .shadow-sm,
+  .shadow {
+    box-shadow: none !important;
+  }
+
+  /* Make sure backgrounds print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Page breaks */
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  /* Ensure tables don't break awkwardly */
+  table,
+  figure,
+  img {
+    page-break-inside: avoid;
+  }
+
+  /* Links - show URL */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* Reset colors for better printing */
+  .bg-green-50,
+  .bg-blue-50,
+  .bg-amber-50,
+  .bg-gray-50 {
+    background-color: #f9fafb !important;
+  }
+
+  .border-green-200,
+  .border-blue-200,
+  .border-amber-200 {
+    border-color: #d1d5db !important;
+  }
+
+  /* Ensure text is readable */
+  .text-green-700,
+  .text-blue-700,
+  .text-amber-700,
+  .text-gray-700 {
+    color: #374151 !important;
+  }
+
+  /* Print summary header */
+  #results::before {
+    content: "HSA/FSA Optimizer 2026 - Results Summary";
+    display: block;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 16pt;
+    border-bottom: 2pt solid #000;
+    padding-bottom: 8pt;
+  }
+
+  /* Add print date */
+  #results::after {
+    content: "Printed: " attr(data-print-date);
+    display: block;
+    margin-top: 24pt;
+    font-size: 9pt;
+    color: #666;
+  }
+}
+
+/* Screen-only styles */
+@media screen {
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
   }
 }
