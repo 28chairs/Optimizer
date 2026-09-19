@@ -1,45 +1,152 @@
+"use client";
+
+import { useState } from "react";
+import { CalculatorForm } from "@/components/CalculatorForm";
+import { ResultsDisplay } from "@/components/ResultsDisplay";
+import { ScenarioComparison } from "@/components/ScenarioComparison";
+import { Checklist } from "@/components/Checklist";
+import { DisclaimerBanner } from "@/components/DisclaimerBanner";
+import {
+  calculateOptimalElections,
+  type CalculatorInputs,
+  type CalculatorResult,
+} from "@/lib/calculator";
+import { IRS_LIMITS_2026, IRS_CITATIONS } from "@/lib/constants";
+
 export default function Home() {
+  const [result, setResult] = useState<CalculatorResult | null>(null);
+
+  const handleCalculate = (inputs: CalculatorInputs) => {
+    const calculationResult = calculateOptimalElections(inputs);
+    setResult(calculationResult);
+
+    // Scroll to results on mobile
+    setTimeout(() => {
+      document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
       {/* Hero Section */}
-      <section className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+      <section className="text-center mb-8 sm:mb-12">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
           Open Enrollment
           <span className="block text-blue-600">Money Optimizer</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+        <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-gray-600">
           Find the optimal mix of HSA, Health FSA, and Dependent Care FSA
           contributions to maximize your federal tax savings for the 2026
           benefits year.
         </p>
       </section>
 
-      {/* Calculator Placeholder */}
-      <section className="mt-12 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center">
-        <div className="mx-auto max-w-md">
-          <svg
-            className="mx-auto h-12 w-12 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-            />
-          </svg>
-          <h2 className="mt-4 text-xl font-semibold text-gray-900">
-            Calculator Coming Soon
-          </h2>
-          <p className="mt-2 text-gray-500">
-            The interactive HSA/FSA optimizer calculator will appear here.
-            Enter your details to see personalized recommendations.
-          </p>
-        </div>
+      {/* Disclaimer Banner */}
+      <section className="mb-8">
+        <DisclaimerBanner />
       </section>
+
+      {/* Main Content */}
+      <div className="grid gap-8 lg:grid-cols-2">
+        {/* Calculator Form */}
+        <section>
+          <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">
+              Your Information
+            </h2>
+            <CalculatorForm onCalculate={handleCalculate} />
+          </div>
+
+          {/* IRS Limits Reference */}
+          <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <h3 className="text-sm font-medium text-gray-900 mb-3">
+              2026 IRS Limits
+            </h3>
+            <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+              <dt className="text-gray-500">HSA (Self-only)</dt>
+              <dd className="text-gray-900 font-medium">
+                ${IRS_LIMITS_2026.HSA_SELF_ONLY.toLocaleString()}
+              </dd>
+              <dt className="text-gray-500">HSA (Family)</dt>
+              <dd className="text-gray-900 font-medium">
+                ${IRS_LIMITS_2026.HSA_FAMILY.toLocaleString()}
+              </dd>
+              <dt className="text-gray-500">HSA Catch-up (55+)</dt>
+              <dd className="text-gray-900 font-medium">
+                +${IRS_LIMITS_2026.HSA_CATCH_UP_55_PLUS.toLocaleString()}
+              </dd>
+              <dt className="text-gray-500">Health FSA</dt>
+              <dd className="text-gray-900 font-medium">
+                ${IRS_LIMITS_2026.HEALTH_FSA_LIMIT.toLocaleString()}
+              </dd>
+              <dt className="text-gray-500">FSA Carryover</dt>
+              <dd className="text-gray-900 font-medium">
+                ${IRS_LIMITS_2026.HEALTH_FSA_MAX_CARRYOVER.toLocaleString()}
+              </dd>
+              <dt className="text-gray-500">Dependent Care FSA</dt>
+              <dd className="text-gray-900 font-medium">
+                ${IRS_LIMITS_2026.DEPENDENT_CARE_FSA_DEFAULT.toLocaleString()}*
+              </dd>
+            </dl>
+            <p className="mt-3 text-xs text-gray-500">
+              Sources: {IRS_CITATIONS.HSA}, {IRS_CITATIONS.HEALTH_FSA}
+              <br />
+              *Dependent Care: {IRS_CITATIONS.DEPENDENT_CARE}
+            </p>
+          </div>
+        </section>
+
+        {/* Results Section */}
+        <section id="results">
+          {result ? (
+            <div className="space-y-6">
+              <ResultsDisplay
+                recommended={result.recommended}
+                isEligibleForHSA={result.isEligibleForHSA}
+                maxHSAContribution={result.maxHSAContribution}
+                maxHealthFSA={result.maxHealthFSA}
+                maxDependentCareFSA={result.maxDependentCareFSA}
+              />
+
+              <Checklist items={result.checklist} warnings={result.warnings} />
+
+              <ScenarioComparison
+                scenarios={result.scenarios}
+                recommendedId={result.recommended.id}
+                isEligibleForHSA={result.isEligibleForHSA}
+              />
+
+              <DisclaimerBanner compact />
+            </div>
+          ) : (
+            <div className="rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center h-full flex items-center justify-center min-h-[300px]">
+              <div className="mx-auto max-w-sm">
+                <svg
+                  className="mx-auto h-12 w-12 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  />
+                </svg>
+                <h3 className="mt-4 text-lg font-medium text-gray-900">
+                  Your Results Will Appear Here
+                </h3>
+                <p className="mt-2 text-sm text-gray-500">
+                  Fill out the form and click &quot;Calculate My Optimal Elections&quot;
+                  to see personalized recommendations.
+                </p>
+              </div>
+            </div>
+          )}
+        </section>
+      </div>
 
       {/* Value Props */}
       <section className="mt-16 grid gap-8 sm:grid-cols-3">
@@ -107,33 +214,6 @@ export default function Home() {
           <p className="mt-2 text-sm text-gray-500">
             All calculations happen in your browser. No data leaves your device.
           </p>
-        </div>
-      </section>
-
-      {/* Disclaimer Banner */}
-      <section className="mt-16 rounded-lg bg-amber-50 border border-amber-200 p-4">
-        <div className="flex">
-          <div className="flex-shrink-0">
-            <svg
-              className="h-5 w-5 text-amber-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          <div className="ml-3">
-            <p className="text-sm text-amber-700">
-              <strong>Educational Tool Only:</strong> This calculator provides
-              estimates for informational purposes. It is not tax, legal, or
-              financial advice. Please consult a qualified professional and
-              verify all figures with your employer&apos;s benefits documentation.
-            </p>
-          </div>
         </div>
       </section>
     </div>
